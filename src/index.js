@@ -19,7 +19,9 @@ async function handleSubmit(event) {
     const {searchQuery}=event.currentTarget.elements
     
     getItems(searchQuery)
-.then((data)=>console.log(data))
+.then((data)=>{
+    refs.galleryResults.innerHTML=createMarkup(data);
+})
 .catch((err)=>console.log(err));
     
 }
@@ -36,13 +38,13 @@ async function getItems(searchQuery) {
         q: searchQuery,
     })
 
-     //1 варіант (запит на сервер через axios)
+     //1 варіант (запит на сервер через axios) => axios.axios is undefined???????????
     const {data} = await axios.get(`${BASE_URL}?${params}`)
     
     return data;
 
 
-    //2 варіант (запит на сервер через fetch)
+    //2 варіант (запит на сервер через fetch) => в консолі помилка??????????
     //const resp = await fetch(`${BASE_URL}?${params}`);
       //  if(!resp.ok) {
       //      throw new Error("404 not found")
@@ -51,6 +53,8 @@ async function getItems(searchQuery) {
       //  return data;
     }
     
+
+    //Перевірка функції запиту на сервер 
     getItems("flower")
     .then((data)=>console.log(data))
     .catch((err)=>console.log(err));
