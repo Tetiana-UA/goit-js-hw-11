@@ -9,12 +9,21 @@
   
 <body>
     
-<form class="search-form">
-  <input type="text" name="search-text" class="search-text">
-  <button type="button" name="search-btn" class="search-btn">
-    Пошук
-  </button>
-</form>
+  <form class="search-form" id="search-form">
+    <input
+      type="text"
+      name="searchQuery"
+      autocomplete="off"
+      placeholder="Search images..."
+      class="search-text"
+    />
+    <button type="submit" class="search-btn">Search</button>
+  </form>
+
+  <div class="gallery">
+    <!-- Картки зображень -->
+  </div>
+
 
 <script src="index.js" type="module"></script>
   </body>

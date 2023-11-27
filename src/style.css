@@ -1,7 +1,8 @@
 .search-form{
     border: 1px solid rgba(8, 182, 240, 0.84);
     display: inline-flex;
-    padding: 0;
+    padding-top: 0;
+    padding-bottom: o;
     justify-content: space-between;
     align-items: center;
     height: 50px;
@@ -16,13 +17,17 @@
     padding-right: 10px;
     padding-left: 5px;
     background-color: transparent;
-    font-size: 25px;
+    font-size: 20px;
 }
 .search-btn{
     border: none; 
     background-color: rgba(0, 200, 255, 0.224);
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 5px;
+    padding-top: 25 px;
+    padding-bottom: 25px;
+   
+    
 
     
 }
