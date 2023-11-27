@@ -1,7 +1,7 @@
 .search-form{
-    border: 1px solid rgb(169, 113, 113);
+    border: 1px solid rgba(8, 182, 240, 0.84);
     display: inline-flex;
-    padding: 0 20px;
+    padding: 0;
     justify-content: space-between;
     align-items: center;
     height: 50px;
@@ -13,17 +13,16 @@
     border: none ;
     width: 200px;
     outline: none;
-    font-size: 20px;
     padding-right: 10px;
+    padding-left: 5px;
     background-color: transparent;
+    font-size: 25px;
 }
 .search-btn{
-    border: 1px solid rgb(54, 48, 48); ;
+    border: none; 
+    background-color: rgba(0, 200, 255, 0.224);
+    font-size: 25px;
+    border-radius: 5px;
 
     
-}
-.search-img{
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
