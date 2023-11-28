@@ -32,6 +32,7 @@
 .load-more{
     width: 100px;
     height: 30px;
+    margin-top: 100px;
 }
 
 
@@ -39,24 +40,34 @@
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
-    gap: 10px;
-    
-}
-
-.info{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-.info-item{
-    width: calc (( 100% - 10px ) / 2);
+    row-gap: 120px;
+    column-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
 }
 .photo-card{
-    width: calc (( 100% - 40px ) / 5);
-   
+    max-width: 400px;
+    height: 250px;
+    margin-bottom: 34px;
+
 }
 .image{
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+.info{
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 30px;
+    
+}
+.info-item{
+    
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }

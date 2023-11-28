@@ -10,7 +10,7 @@ const refs ={
     buttonLoadMore: document.querySelector(".load-more"),
     galleryResults: document.querySelector(".gallery"),
 }
-let page = 1; 
+let page; 
 refs.buttonLoadMore.hidden=true;
 
 refs.form.addEventListener("submit", handleSubmit);
@@ -19,25 +19,24 @@ refs.form.addEventListener("submit", handleSubmit);
 function handleSubmit(event) {
     event.preventDefault();
     const {searchQuery} = refs.form.elements; 
+    page = 1;
         
     //Викликаємо функцію запиту на сервер, передаємо їй аргументом значення інпуту,  та обробляємо результат виклику data. Рендеримо розмітку карток зображень.
     getItems(searchQuery.value)
     .then((data)=>{
-    refs.galleryResults.insertAdjacentHTML(
-        "beforeend",
-        createMarkup(data.hits)
-        );
+    refs.galleryResults.innerHTML=createMarkup(data.hits);
+        
     Notify.success(`"Hooray! We found ${data.totalHits} images."`);
     refs.buttonLoadMore.hidden=false;
     refs.buttonLoadMore.addEventListener("click", handleLoadMore);
     
     //Перевірка -якщо бекенд повертає порожній масив, то виводимо повідомлення
-    if (data === null) {
+    if (data.hits.lenght === 0) {
         Notify.failure('sorry,there are no images matching your search query. Please try again.');
     }
 })
-.catch((err) => console.log(err));
-//.finally(() => refs.form.reset()); 
+.catch((err) => console.log(err))
+.finally(() => refs.form.reset()); 
 }
 
 
@@ -53,7 +52,7 @@ function handleLoadMore() {
         "beforeend",
         createMarkup(data.hits)
         );
-    
+        refs.buttonLoadMore.hidden=false;
     
     //Перевірка -якщо вже всі знайдені картинки загрузилися, то знімаємо слухача і виходимо з функції
     if (data.hits.lenght >= data.totalHits) {
@@ -62,8 +61,8 @@ function handleLoadMore() {
         return;
     }
 })
-.catch((err) => console.log(err));
-//.finally(() => refs.form.reset()); 
+.catch((err) => console.log(err))
+.finally(() => refs.form.reset()); 
 }
 
 
@@ -119,5 +118,5 @@ async function getItems(searchQuery) {
         captionsData: "alt",
         captionPosition: "bottom",
         captionDelay: 250,
-        close: "true",
+        //close: "true"
     })
