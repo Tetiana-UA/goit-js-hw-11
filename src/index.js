@@ -10,6 +10,15 @@ const refs ={
     buttonLoadMore: document.querySelector(".load-more"),
     galleryResults: document.querySelector(".gallery"),
 }
+
+//Модальне вікно
+const lightbox = new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionPosition: "bottom",
+    captionDelay: 250,
+    
+})
+
 let page; 
 refs.buttonLoadMore.hidden=true;
 
@@ -25,13 +34,15 @@ function handleSubmit(event) {
     getItems(searchQuery.value)
     .then((data)=>{
     refs.galleryResults.innerHTML=createMarkup(data.hits);
-        
+    lightbox.refresh();
+
     Notify.success(`"Hooray! We found ${data.totalHits} images."`);
+
     refs.buttonLoadMore.hidden=false;
     refs.buttonLoadMore.addEventListener("click", handleLoadMore);
     
     //Перевірка -якщо бекенд повертає порожній масив, то виводимо повідомлення
-    if (data.hits.lenght === 0) {
+    if (data.hits.length === 0) {
         Notify.failure('sorry,there are no images matching your search query. Please try again.');
     }
 })
@@ -52,10 +63,13 @@ function handleLoadMore() {
         "beforeend",
         createMarkup(data.hits)
         );
+    //Оновлюємо lightbox при кожній загрузці картинок
+        lightbox.refresh();
+
         refs.buttonLoadMore.hidden=false;
     
     //Перевірка -якщо вже всі знайдені картинки загрузилися, то знімаємо слухача і виходимо з функції
-    if (data.hits.lenght >= data.totalHits) {
+    if (data.hits.length >= data.totalHits) {
         refs.buttonLoadMore.hidden=true;
         refs.buttonLoadMore.removeEventListener("click", handleLoadMore);
         return;
@@ -109,14 +123,9 @@ async function getItems(searchQuery) {
         <b>Downloads ${hit.downloads}</b>
     </p>
     </div>
-    
-    </li>`) 
+    </li>`
+    ) 
+    .join("");
     }
 
-    //Модальне вікно
-    const lightbox = new SimpleLightbox(".gallery a", {
-        captionsData: "alt",
-        captionPosition: "bottom",
-        captionDelay: 250,
-        //close: "true"
-    })
+    
