@@ -2,7 +2,7 @@
     border: 1px solid rgba(8, 182, 240, 0.84);
     display: inline-flex;
     padding-top: 0;
-    padding-bottom: o;
+    padding-bottom: 0;
     justify-content: space-between;
     align-items: center;
     height: 50px;
@@ -24,10 +24,25 @@
     background-color: rgba(0, 200, 255, 0.224);
     font-size: 20px;
     border-radius: 5px;
-    padding-top: 25 px;
-    padding-bottom: 25px;
-   
-    
+    padding-top: 20px;
+    padding-bottom: 20px;   
+}
+.load-more{
+    width: 50px;
+    height: 30px;
+}
 
-    
+
+.gallery{
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.info{
+    display: flex;
+}
+.info-item{
+    display: flex;
+    flex-direction: column;
 }
