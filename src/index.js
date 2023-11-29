@@ -34,6 +34,7 @@ function handleSubmit(event) {
     getItems(searchQuery.value)
     .then((data)=>{
     refs.galleryResults.innerHTML=createMarkup(data.hits);
+    //Оновлюємо lightbox при кожній загрузці картинок
     lightbox.refresh();
 
     Notify.success(`"Hooray! We found ${data.totalHits} images."`);
@@ -63,8 +64,17 @@ function handleLoadMore() {
         "beforeend",
         createMarkup(data.hits)
         );
-    //Оновлюємо lightbox при кожній загрузці картинок
+        //Оновлюємо lightbox при кожній загрузці картинок
         lightbox.refresh();
+        //Плавне прокручування сторінки після кліку на кнопку Load more
+        const { height: cardHeight } = document
+        .querySelector(".gallery")
+        .firstElementChild.getBoundingClientRect();
+
+        window.scrollBy({
+        top: cardHeight * 2, //цифрами регулюємо на скільки підтягнути вверх нові картинки
+        behavior: "smooth",
+        });
 
         refs.buttonLoadMore.hidden=false;
     
