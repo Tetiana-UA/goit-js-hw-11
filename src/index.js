@@ -96,9 +96,9 @@ function handleLoadMore() {
         });
 
 
-        //Перевірка -якщо  на останній сторінці загружено картинок <= 40 ( і більше немає),  то знімаємо слухача, очищаємо форму і виходимо з функції 
+        //Перевірка -якщо поточна сторінка = загальній кількості сторінок (беремо найбільше ціле число) або   на останній сторінці загружено картинок <= 40 ( і більше немає),  то знімаємо слухача, очищаємо форму і виходимо з функції 
         
-        if ( data.hits.length < 40 ) {
+        if (pageNumber >= Math.ceil(data.totalHits/data.per_page)) {
             refs.buttonLoadMore.hidden=true;
             refs.buttonLoadMore.removeEventListener("click", handleLoadMore);
             Notify.failure('Search is over');
