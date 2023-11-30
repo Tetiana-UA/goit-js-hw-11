@@ -24,9 +24,8 @@ const lightbox = new SimpleLightbox(".gallery a", {
 let pageNumber; 
 refs.buttonLoadMore.hidden=true;
 
+
 refs.form.addEventListener("submit", handleSubmit);
-
-
 
 //Функція обробки форми по події submit
 function handleSubmit(event) {
@@ -57,11 +56,10 @@ function handleSubmit(event) {
             refs.buttonLoadMore.addEventListener("click", handleLoadMore);       
             }
             //Перевірка -якщо бекенд повертає  масив з <40 картинок тобто на одну сторінку, то кнопка buttonLoadMore не потрібна 
-            if (data.totalHits < 40) {
+            if (pageNumber >= Math.ceil(data.totalHits/40)) {
                 refs.buttonLoadMore.hidden=true;
                 refs.form.reset();
             }
-
         } )
         .catch((err) => console.log(err));
 }
@@ -96,9 +94,9 @@ function handleLoadMore() {
         });
 
 
-        //Перевірка -якщо поточна сторінка = загальній кількості сторінок (беремо найбільше ціле число) або   на останній сторінці загружено картинок <= 40 ( і більше немає),  то знімаємо слухача, очищаємо форму і виходимо з функції 
+        //Перевірка - якщо поточна сторінка >= загальній кількості картинок по запиту поділених на 40 (беремо найбільше ціле число) або   на останній сторінці загружено картинок <= 40 ( і більше немає),  то знімаємо слухача, очищаємо форму і виходимо з функції 
         
-        if (pageNumber >= Math.ceil(data.totalHits/data.per_page)) {
+        if (pageNumber >= Math.ceil(data.totalHits/40)) {
             refs.buttonLoadMore.hidden=true;
             refs.buttonLoadMore.removeEventListener("click", handleLoadMore);
             Notify.failure('Search is over');
@@ -111,4 +109,5 @@ function handleLoadMore() {
     })
     .catch((err) => console.log(err))
 }
+
 
